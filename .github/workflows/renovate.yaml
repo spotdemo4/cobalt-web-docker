@@ -1,0 +1,26 @@
+name: renovate
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # every day at 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: spotdemo4/better-checkout@eaec73409dbe842ad8446ee818976878b0e9108d # v0.0.2
+        with:
+          app-id: ${{ vars.CLIENT_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Renovate
+        uses: renovatebot/github-action@502904f1cefdd70cba026cb1cbd8c53a1443e91b # v44.1.0
+        with:
+          configurationFile: .github/renovate.json
+          token: ${{ steps.checkout.outputs.token }}

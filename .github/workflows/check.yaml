@@ -1,41 +1,19 @@
-name: update
+name: check
 
 on:
-  schedule:
-    - cron: "5 4 * * *" # every day at 04:05 UTC
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
   workflow_dispatch:
-    inputs:
-      force:
-        description: "forces an update even if no new version is found"
-        type: choice
-        default: "false"
-        options:
-          - "true"
-          - "false"
 
 permissions:
   contents: read
-  packages: write
+  packages: read
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.update.outputs.version }}
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-
-      - run: ./check.sh
-        id: update
-        env:
-          registry: ghcr.io/spotdemo4/cobalt-web
-          token: ${{ github.token }}
-          force: ${{ inputs.force }}
-
-  build:
-    needs: check
-    runs-on: ubuntu-latest
-    if: needs.check.outputs.version != ''
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
@@ -56,10 +34,7 @@ jobs:
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
           context: .
-          push: true
+          push: false
           platforms: |
             linux/amd64
             linux/arm64
-          tags: |
-            ghcr.io/spotdemo4/cobalt-web:${{ needs.check.outputs.version }}
-            ghcr.io/spotdemo4/cobalt-web:latest

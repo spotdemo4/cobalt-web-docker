@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-global-schema.json",
+
+  // self-hosted
+  "onboarding": false,
+  "requireConfig": "ignored",
+  "platform": "github",
+  "repositories": ["spotdemo4/cobalt-web-docker"],
+
+  // repository
+  "extends": ["config:recommended"],
+  "branchPrefix": "renovate/",
+  "dependencyDashboardTitle": "Dependency Dashboard",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    },
+    {
+      "groupName": "github actions",
+      "matchManagers": ["github-actions"]
+    }
+  ]
+}
