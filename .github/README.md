@@ -1,7 +1,15 @@
-# [cobalt web](https://github.com/imputnet/cobalt/tree/main/web) docker images
+# [cobalt/web](https://github.com/imputnet/cobalt/tree/main/web) docker images
 
 [![version](https://ghcr-badge.egpl.dev/spotdemo4/cobalt-web/latest_tag?color=%2344cc11&ignore=latest&label=version&trim=)](https://github.com/spotdemo4/cobalt-web-docker/pkgs/container/cobalt-web)
 [![size](https://ghcr-badge.egpl.dev/spotdemo4/cobalt-web/size?color=%2344cc11&tag=latest&label=image+size&trim=)](https://github.com/spotdemo4/cobalt-web-docker/pkgs/container/cobalt-web)
+
+[`ghcr.io/imputnet/cobalt`](https://github.com/imputnet/cobalt/pkgs/container/cobalt) doesn't provide the frontend. That's dumb. This container builds and serves the frontend.
+
+Track whether this is still necessary: https://github.com/imputnet/cobalt/issues/768
+
+## Updates
+
+This repo checks for new versions every day. The latest version should be the version in [`cobalt/web/package.json`](https://github.com/imputnet/cobalt/blob/main/web/package.json). This does not necessarily correspond to the cobalt api version.
 
 ## docker-compose.yaml
 
