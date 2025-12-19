@@ -4,6 +4,14 @@ on:
   schedule:
     - cron: "5 4 * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "forces an update even if no new version is found"
+        type: choice
+        default: "false"
+        options:
+          - "true"
+          - "false"
 
 permissions:
   contents: read
@@ -20,3 +28,4 @@ jobs:
       - run: ./update.fish
         env:
           token: ${{ github.token }}
+          force: ${{ inputs.force }}

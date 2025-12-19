@@ -5,6 +5,7 @@ echo ""
 
 set registry ghcr.io/spotdemo4/cobalt-web
 
+
 set cobalt_version (
     curl -s https://raw.githubusercontent.com/imputnet/cobalt/refs/heads/main/web/package.json | jq -r '.version'
 )
@@ -14,23 +15,28 @@ if test -z "$cobalt_version"
 end
 echo "latest cobalt web version: $cobalt_version"
 
-set tags (
-    skopeo list-tags --creds trev:$token docker://$registry | jq -r '.Tags[]'
-)
-if test -z "$tags"
-    echo "failed to fetch existing tags from ghcr.io"
-    return 1
-end
-echo "current tags: $tags"
-
-for tag in $tags
-    if string match -q "$cobalt_version" $tag
-        echo "tag $tag already exists, skipping update"
-        return 0
+if test "$force" = "true"
+    echo "force update enabled, proceeding with update"
+else
+    set tags (
+        skopeo list-tags --creds trev:$token docker://$registry | jq -r '.Tags[]'
+    )
+    if test -z "$tags"
+        echo "failed to fetch existing tags from ghcr.io"
+        return 1
     end
+    echo "current tags: $tags"
+
+    for tag in $tags
+        if string match -q "$cobalt_version" $tag
+            echo "tag $tag already exists, skipping update"
+            return 0
+        end
+    end
+
+    echo "tag $cobalt_version does not exist, proceeding with update"
 end
 
-echo "tag $cobalt_version does not exist, proceeding with update"
 
 echo "logging into ghcr.io"
 echo "$token" | docker login ghcr.io --username trev --password-stdin
