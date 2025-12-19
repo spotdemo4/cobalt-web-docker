@@ -11,7 +11,7 @@ RUN apk add --no-cache git
 RUN git clone --depth 1 https://github.com/imputnet/cobalt.git cobalt
 WORKDIR /cobalt
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --filter=./web
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm run --filter=./web check
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm --filter=./web exec svelte-kit sync
 
 # runtime deps
 COPY --from=static-web-server /static-web-server /usr/local/bin/static-web-server

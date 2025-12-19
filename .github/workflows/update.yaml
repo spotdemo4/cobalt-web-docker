@@ -56,6 +56,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          tags: spotdemo4/cobalt-web:${{ needs.check.outputs.version }},spotdemo4/cobalt-web:latest
+          tags: ghcr.io/spotdemo4/cobalt-web:${{ needs.check.outputs.version }},ghcr.io/spotdemo4/cobalt-web:latest
           context: .
           push: true
