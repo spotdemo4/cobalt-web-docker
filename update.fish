@@ -1,7 +1,9 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i fish -p fish jq skopeo
 
-set registry "ghcr.io/spotdemo4/cobalt-web"
+echo ""
+
+set registry ghcr.io/spotdemo4/cobalt-web
 
 set cobalt_version (
     curl -s https://raw.githubusercontent.com/imputnet/cobalt/refs/heads/main/web/package.json | jq -r '.version'
