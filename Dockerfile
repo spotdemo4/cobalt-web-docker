@@ -1,5 +1,5 @@
 FROM joseluisq/static-web-server:2.40.1@sha256:63528bfba5d86b00572e23b4e44ed0f7a791f931df650125156d0c24f7a8f877 AS static-web-server
-FROM node:lts-alpine3.23@sha256:cd6fb7efa6490f039f3471a189214d5f548c11df1ff9e5b181aa49e22c14383e
+FROM node:lts-alpine3.23@sha256:4f696fbf39f383c1e486030ba6b289a5d9af541642fc78ab197e584a113b9c03
 
 # deps
 ENV PNPM_HOME="/pnpm"
