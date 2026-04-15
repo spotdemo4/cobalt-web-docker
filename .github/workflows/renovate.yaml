@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout
         id: checkout
-        uses: spotdemo4/better-checkout@87336d3542f856e09b06c19d4bc470325776e6e3 # v0.9.0
+        uses: spotdemo4/better-checkout@a08be04e9f594479a4ac25b1a67d707190dd619e # v0.10.0
         with:
           app-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
